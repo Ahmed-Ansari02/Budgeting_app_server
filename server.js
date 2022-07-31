@@ -186,7 +186,7 @@ app.get("/reset", (req, res) => {
     res.send("reset!");
   });
 });
-app.get("/"(req,res)=>{
+app.get("/",(req,res)=>{
   res.send("<h1>Hello</h1>")
 })
 
