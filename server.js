@@ -156,7 +156,7 @@ app.delete("/deleteitem/:id/:user_id", (req, res) => {
         throw err;
       }
 
-      console.log(db_res);
+      
       res.send("ok");
     }
   );
