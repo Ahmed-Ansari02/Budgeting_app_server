@@ -186,5 +186,8 @@ app.get("/reset", (req, res) => {
     res.send("reset!");
   });
 });
+app.get("/"(req,res)=>{
+  res.send("<h1>Hello</h1>")
+})
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
