@@ -178,6 +178,6 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "18.x"
+    "node": "18.2.0"
   }
 }
