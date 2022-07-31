@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-/*const con = mysql.createConnection({
+const con = mysql.createConnection({
   host: "mysqlserver082002.mysql.database.azure.com",
   user: "ahmed",
   port: 3306,
@@ -16,15 +16,15 @@ let dbconnectionstatus = false;
 let res_obj = {};
 con.query("SHOW TABLES;", function (err, res) {
   console.log(res);
-  if (res.length == 0) {
+  if (!res||res.length == 0) {
     console.log("connection failed :(");
 
     return;
   }
   dbconnectionstatus = true;
   console.log("db connection is live");
-}); */
-const con={}
+}); 
+
 
 app.use(express.json());
 
