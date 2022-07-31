@@ -3,7 +3,8 @@ const mysql = require("mysql");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const con = mysql.createConnection({
+
+/*const con = mysql.createConnection({
   host: "mysqlserver082002.mysql.database.azure.com",
   user: "ahmed",
   port: 3306,
@@ -11,7 +12,7 @@ const con = mysql.createConnection({
   database: "budgets",
 });
 let dbconnectionstatus = false;
-const x = 3;
+
 let res_obj = {};
 con.query("SHOW TABLES;", function (err, res) {
   console.log(res);
@@ -22,7 +23,8 @@ con.query("SHOW TABLES;", function (err, res) {
   }
   dbconnectionstatus = true;
   console.log("db connection is live");
-});
+}); */
+const con={}
 
 app.use(express.json());
 
