@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const mysql = require("mysql");
 
@@ -5,11 +6,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const con = mysql.createConnection({
-  host: "mysqlserver082002.mysql.database.azure.com",
-  user: "ahmed",
-  port: 3306,
-  password: "Azure1234",
-  database: "budgets",
+  host: process.env.host,
+  user: process.env.user,
+  port: process.env.port,
+  password: process.env.password,
+  database: process.env.database,
 });
 let dbconnectionstatus = false;
 
@@ -137,7 +138,6 @@ app.get("/linegraphdata/:user_id", (req, res) => {
 
 app.get("/categorydata/:cur_month/:user_id", (req, res) => {
   console.log(req.params.cur_month);
-  let x = 7;
   con.query(
     `select category, sum(price*quantity) as total from budgets where MONTH(date_purchased)="${req.params.cur_month}" and user_id=${req.params.user_id} group by category;`,
     (err, db_res) => {
