@@ -4,13 +4,13 @@ const mysql = require("mysql");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+console.log(process.env.host)
 const con = mysql.createConnection({
-  host: process.env.host,
-  user: process.env.user,
-  port: process.env.port,
-  password: process.env.password,
-  database: process.env.database,
+  host: "185.241.208.92",
+  user: "admin",
+  port: 3306,
+  password: "root",
+  database: "budgets",
 });
 let dbconnectionstatus = false;
 
