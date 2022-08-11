@@ -11,7 +11,6 @@ const con = mysql.createConnection({
   port: process.env.db_port,
   password: process.env.password,
   database: process.env.database,
-  table: "budgets"
 });
 let dbconnectionstatus = false;
 
