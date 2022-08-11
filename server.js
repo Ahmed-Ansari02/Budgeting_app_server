@@ -16,7 +16,7 @@ let dbconnectionstatus = false;
 
 con.connect(() => {
   console.log(con.threadId);
-  let res_obj = {};
+
   con.query("show tables;", function (err, res) {
     if (err) {
       console.log(err);
@@ -75,6 +75,7 @@ app.get("/fetch_data/:user_id", (req, res) => {
 });
 
 app.get("/summarydata/:cur_month/:last_month/:user_id", async (req, res) => {
+  let res_obj = {};
   await new Promise((resolve, reject) => {
     con.query(
       `select sum( price*quantity) as Total_price from budgets where MONTH(date_purchased) ="${req.params.cur_month}" and user_id=${req.params.user_id};`,
