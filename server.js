@@ -1,31 +1,36 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
-const mysql = require("mysql");
+const { copyFileSync } = require("graceful-fs");
+const mysql = require("mysql2");
+const { CHAR_NO_BREAK_SPACE } = require("picomatch/lib/constants");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-console.log(process.env.host)
 const con = mysql.createConnection({
   host: process.env.host,
   user: process.env.user,
-  port: process.env.db_port,
   password: process.env.password,
   database: process.env.database,
 });
 let dbconnectionstatus = false;
 
-let res_obj = {};
-con.query("SHOW TABLES;", function (err, res) {
-  console.log(res);
-  if (!res||res.length == 0) {
-    console.log("connection failed :(");
+con.connect(() => {
+  console.log(con.threadId);
+  let res_obj = {};
+  con.query("show tables;", function (err, res) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(res);
+    if (!res || res.length == 0) {
+      console.log("connection failed :(");
 
-    return;
-  }
-  dbconnectionstatus = true;
-  console.log("db connection is live");
-}); 
-
+      return;
+    }
+    dbconnectionstatus = true;
+    console.log("db connection is live");
+  });
+});
 
 app.use(express.json());
 
@@ -50,12 +55,11 @@ app.post("/savedata/", (req, res) => {
             console.log(err);
             return;
           }
-          console.log(dbres)
+          console.log(dbres);
         }
       );
     });
     res.send("ok");
-    ;
   }
 });
 
@@ -158,15 +162,14 @@ app.delete("/deleteitem/:id/:user_id", (req, res) => {
         throw err;
       }
 
-      
       res.send("ok");
     }
   );
 });
 
-app.delete("/deleteitem_multiples/:user_id",(req,res)=>{
-  let id_query=req.body.join()
-  
+app.delete("/deleteitem_multiples/:user_id", (req, res) => {
+  let id_query = req.body.join();
+
   con.query(
     `delete from budgets where id IN (${id_query}) and user_id=${req.params.user_id}`,
     (err, db_res) => {
@@ -178,8 +181,8 @@ app.delete("/deleteitem_multiples/:user_id",(req,res)=>{
       console.log(db_res);
       res.send("ok");
     }
-  )
-})
+  );
+});
 
 app.get("/reset", (req, res) => {
   console.log("/reset");
@@ -188,8 +191,8 @@ app.get("/reset", (req, res) => {
     res.send("reset!");
   });
 });
-app.get("/",(req,res)=>{
-  res.send("<h1>Hello</h1>")
-})
+app.get("/", (req, res) => {
+  res.send("<h1>Hello</h1>");
+});
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
