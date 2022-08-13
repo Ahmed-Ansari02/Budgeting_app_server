@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql2");
-const cors = require("cors")
+
 
 const app = express();
-app.use(cors())
+
 const PORT = process.env.PORT || 5000;
 const con = mysql.createConnection({
   host: process.env.host,
@@ -15,7 +15,6 @@ const con = mysql.createConnection({
 let dbconnectionstatus = false;
 
 con.connect(() => {
-  console.log(con.threadId);
 
   con.query("show tables;", function (err, res) {
     if (err) {
