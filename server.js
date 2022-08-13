@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express = require("express");
-const { copyFileSync } = require("graceful-fs");
 const mysql = require("mysql2");
-const { CHAR_NO_BREAK_SPACE } = require("picomatch/lib/constants");
+const cors = require("cors")
 
 const app = express();
+app.use(cors())
 const PORT = process.env.PORT || 5000;
 const con = mysql.createConnection({
   host: process.env.host,
